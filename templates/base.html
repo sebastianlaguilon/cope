@@ -10,8 +10,10 @@
   <header>
     <div class="logo-header">
       <img src="{{url_for('static', filename='img/logo_pleno_mar.png') }}" alt="logo del hotel">
-    <h1>Hotel Pleno Mar Necochea</h1>
-    <nav>
+      <h1>Hotel Pleno Mar Necochea</h1>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menuPrincipal" aria-label="Abrir menú de navegación">☰</button>
+    <nav id="menuPrincipal">
       <a href="{{ url_for('inicio') }}">🏠 Inicio</a>
       <a href="{{ url_for('habitaciones.ver_habitaciones') }}">Habitaciones</a>
       <a href="{{ url_for('clientes.ver_clientes') }}">Clientes</a>
@@ -40,6 +42,8 @@
   
   <script>
   const toggle = document.getElementById('modoToggle');
+  const menuButton = document.getElementById('menuToggle');
+  const nav = document.getElementById('menuPrincipal');
 
   // Aplicar modo guardado al cargar
   if (localStorage.getItem('modo') === 'oscuro') {
@@ -51,6 +55,21 @@
     document.body.classList.toggle('modo-oscuro');
     const modo = document.body.classList.contains('modo-oscuro') ? 'oscuro' : 'claro';
     localStorage.setItem('modo', modo);
+  });
+
+  menuButton?.addEventListener('click', () => {
+    const abierto = nav?.classList.toggle('menu-abierto');
+    if (menuButton) {
+      menuButton.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+    }
+  });
+
+  nav?.addEventListener('click', (evento) => {
+    if (!(evento.target instanceof HTMLElement)) return;
+    if (evento.target.closest('a')) {
+      nav.classList.remove('menu-abierto');
+      menuButton?.setAttribute('aria-expanded', 'false');
+    }
   });
 </script>
 
