@@ -6,16 +6,24 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
 </head>
 <body class="{% if modo_oscuro %}modo-oscuro{% endif %}">
-  <header>
-    <div class="logo-header">
-      <img src="{{url_for('static', filename='img/logo_pleno_mar.png') }}" alt="logo del hotel">
-    <h1>Hotel Pleno Mar Necochea</h1>
-    <nav>
-      <a href="{{ url_for('inicio') }}">🏠 Inicio</a>
-      <a href="{{ url_for('habitaciones.ver_habitaciones') }}">Habitaciones</a>
-      <a href="{{ url_for('clientes.ver_clientes') }}">Clientes</a>
-      <a href="{{ url_for('reservas.ver_reservas') }}">Reservas</a>
-    </nav>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-header">
+        <img src="{{url_for('static', filename='img/logo_pleno_mar.png') }}" alt="Logo del hotel">
+        <h1>Hotel Pleno Mar Necochea</h1>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-controls="siteNav" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="siteNav" class="main-nav">
+        <a href="{{ url_for('inicio') }}">Inicio</a>
+        <a href="{{ url_for('habitaciones.ver_habitaciones') }}">Habitaciones</a>
+        <a href="{{ url_for('clientes.ver_clientes') }}">Clientes</a>
+        <a href="{{ url_for('reservas.ver_reservas') }}">Reservas</a>
+      </nav>
+    </div>
   </header>
 
   <main>
@@ -39,6 +47,8 @@
   
   <script>
   const toggle = document.getElementById('modoToggle');
+  const navToggle = document.getElementById('navToggle');
+  const siteNav = document.getElementById('siteNav');
 
   // Aplicar modo guardado al cargar
   if (localStorage.getItem('modo') === 'oscuro') {
@@ -50,6 +60,38 @@
     document.body.classList.toggle('modo-oscuro');
     const modo = document.body.classList.contains('modo-oscuro') ? 'oscuro' : 'claro';
     localStorage.setItem('modo', modo);
+  });
+
+  navToggle?.addEventListener('click', () => {
+    if (!siteNav) {
+      return;
+    }
+    const isOpen = siteNav.classList.toggle('is-open');
+    navToggle.classList.toggle('is-active', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  siteNav?.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+    if (target.tagName === 'A' && window.innerWidth < 992) {
+      siteNav.classList.remove('is-open');
+      navToggle?.classList.remove('is-active');
+      navToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (!siteNav || !navToggle) {
+      return;
+    }
+    if (window.innerWidth >= 992) {
+      siteNav.classList.remove('is-open');
+      navToggle.classList.remove('is-active');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
   });
 </script>
 
