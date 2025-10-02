@@ -16,6 +16,13 @@ body {
   color: var(--color-texto);
   margin: 0;
   padding: 0;
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* 🧭 Encabezado */
@@ -25,6 +32,12 @@ header {
   padding: 20px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 nav {
@@ -33,6 +46,13 @@ nav {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+}
+
+main {
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: 20px 24px 40px;
+  box-sizing: border-box;
 }
 
 nav a {
@@ -51,13 +71,14 @@ nav a:hover {
 
 /* 📋 Tablas */
 table {
-  width: 90%;
+  width: min(100%, 900px);
   margin: 30px auto;
   border-collapse: collapse;
   background-color: var(--color-secundario);
   color: var(--color-texto);
   border-radius: 8px;
   overflow: hidden;
+  box-sizing: border-box;
 
 }
 
@@ -70,6 +91,11 @@ th {
 td {
   padding: 10px;
   border-bottom: 1px solid var(--color-borde);
+}
+
+th,
+td {
+  word-break: break-word;
 }
 
 tr:nth-child(even) {
@@ -85,7 +111,8 @@ tr:nth-child(even) {
   flex-direction: column;
   gap: 15px;
   color: var(--color-texto);
-  
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .formulario label {
@@ -122,27 +149,121 @@ tr:nth-child(even) {
   color: var(--color-texto);
   padding: 12px;
   margin: 20px auto;
-  width: 80%;
+  width: min(80%, 600px);
   text-align: center;
   border-radius: 6px;
-  
+  box-sizing: border-box;
+
 }
 
 /* 📱 Responsive */
+@media (min-width: 901px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    align-items: center;
+  }
+
+  nav {
+    margin-top: 0;
+  }
+
+  .logo-header {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  header {
+    padding: 16px;
+  }
+
+  nav {
+    gap: 12px;
+  }
+
+  nav a {
+    padding: 8px 12px;
+  }
+
+  main {
+    padding: 20px 16px 32px;
+  }
+
+  .inicio-container,
+  .dashboard-container {
+    padding: 24px 16px;
+  }
+
+  table {
+    width: 100%;
+  }
+}
+
 @media (max-width: 600px) {
+  header {
+    align-items: stretch;
+  }
+
+  .logo-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  nav a {
+    text-align: center;
+    width: 100%;
+  }
+
   table {
     font-size: 14px;
-    color: var(--color-texto);
+  }
+
+  th,
+  td {
+    padding: 8px;
   }
 
   .formulario {
-    width: 90%;
-    color: var(--color-texto);
+    padding: 0 4px;
+  }
+
+  .tarjeta {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 420px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  .inicio-container h2 {
+    font-size: 22px;
+  }
+
+  .inicio-container p {
+    font-size: 16px;
+  }
+
+  .dashboard-container {
+    padding: 20px 12px;
   }
 }
 .dashboard-container {
   text-align: center;
   padding: 40px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .tarjetas {
@@ -163,6 +284,7 @@ tr:nth-child(even) {
   color: var(--color-texto);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
+  box-sizing: border-box;
 }
 
 .tarjeta:hover {
@@ -202,6 +324,8 @@ tr:nth-child(even) {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   animation: fadeIn 1s ease-in-out;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -232,6 +356,7 @@ tr:nth-child(even) {
   align-items: center;
   justify-content: center;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .logo-header img {
@@ -297,7 +422,9 @@ footer{
   color: var(--color-texto);
   border-radius: 5px;
   font-size: 14px;
-
+  width: min(100%, 1200px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 footer img {
